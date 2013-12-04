@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model package="epochta" baseClass="xPDOObject" platform="mysql" defaultEngine="MyISAM" phpdoc-package="epochta"
+       version="1.1">
+
+<object class="ePochtaValidateNumber" table="epochta_validate_number" extends="xPDOObject">
+    <field key="user_id" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="false"/>
+    <field key="phone" dbtype="varchar" precision="50" phptype="string" null="true"/>
+    <field key="code" dbtype="varchar" precision="50" phptype="string" null="true"/>
+    <field key="validate" dbtype="int" precision="1" attributes="unsigned" phptype="integer" null="true"
+           default="0"/>
+    <field key="createdon" dbtype="datetime" phptype="datetime" null="true" default="0000-00-00 00:00:00"/>
+    <field key="updatedon" dbtype="datetime" phptype="datetime" null="true" default="0000-00-00 00:00:00"/>
+    <field key="ip" dbtype="text" phptype="json" null="false"/>
+
+    <index alias="user_date" name="user_date" primary="true" unique="true" type="BTREE">
+        <column key="user_id" length="" collation="A" null="false"/>
+        <column key="updatedon" length="" collation="A" null="true"/>
+    </index>
+    <aggregate alias="User" class="modUser" local="user_id" foreign="id" cardinality="one" owner="foreign"/>
+
+</object>
+
+</model>
