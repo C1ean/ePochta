@@ -1,9 +1,9 @@
  <?php
 define('MODX_API_MODE', true);
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/index.php';
+require_once dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/index.php';
 /*******************************************************/
 
-$package = 'ePochta'; // Class name for generation
+$package = 'epochta'; // Class name for generation
 $suffix = 'epochta_'; // Suffix of tables.
 $prefix = $modx->config['table_prefix']; // table prefix
 

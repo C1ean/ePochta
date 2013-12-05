@@ -26,6 +26,7 @@ class ePochta
         $this->config = array_merge(array(
             'assetsUrl' => $assetsUrl
         , 'corePath' => $corePath
+        ,'processorsPath' => $corePath.'processors/'
         , 'lib' => $corePath . 'model/epochta/lib/'
         , 'sms_key_private' => $this->modx->getOption('epochta_sms_key_private', null, '') //private key
         , 'sms_key_public' => $this->modx->getOption('epochta_sms_key_public', null, '') //public  key
@@ -81,9 +82,27 @@ class ePochta
             $this->modx->log(modX::LOG_LEVEL_ERROR, print_r($res, true));
             return true;
         }
-         else   return true;
+         else  {
+             $this->modx->log(modX::LOG_LEVEL_ERROR, '[ePochta] Send OK to '.$tel.' : '.print_r($res, true));
+                    return true;
+         }
 
     }
+
+    /**
+     * Shorthand for the call of processor
+     *
+     * @access public
+     * @param string $action Path to processor
+     * @param array $data Data to be transmitted to the processor
+     * @return mixed The result of the processor
+     */
+    public function runProcessor($action = '', $data = array()) {
+        if (empty($action)) {return false;}
+        return $this->modx->runProcessor($action, $data, array('processors_path' => $this->config['processorsPath']));
+    }
+
+
 
 
 

@@ -5,7 +5,7 @@ require_once MODX_CORE_PATH . 'config/' . MODX_CONFIG_KEY . '.inc.php';
 require_once MODX_CONNECTORS_PATH . 'index.php';
 
 $corePath = $modx->getOption('epochta_core_path', null, $modx->getOption('core_path') . 'components/epochta/');
-require_once $corePath . 'model/epochta/epochta.class.php';
+require_once $corePath . 'model/epochta/epochtavalidatenumber.class.php';
 $modx->epochta = new ePochta($modx);
 
 $modx->lexicon->load('epochta:default');

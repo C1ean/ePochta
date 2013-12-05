@@ -13,7 +13,7 @@ abstract class ePochtaMainController extends modExtraManagerController {
 	 */
 	public function initialize() {
 		$corePath = $this->modx->getOption('epochta_core_path', null, $this->modx->getOption('core_path') . 'components/epochta/');
-		require_once $corePath . 'model/epochta/epochta.class.php';
+		require_once $corePath . 'model/epochta/epochtavalidatenumber.class.php';
 
 		$this->ePochta = new ePochta($this->modx);
 
