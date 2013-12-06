@@ -1,9 +1,10 @@
 <?php
-class ePochtaValidateNumberCreateProcessor extends modObjectCreateProcessor {
-    /** @var ePochta $object */
+class epValidateNumCreateProcessor extends modObjectCreateProcessor {
+
     public $object;
 
     public $classKey='epValidateNum';
+
 
 
 
@@ -65,11 +66,11 @@ class ePochtaValidateNumberCreateProcessor extends modObjectCreateProcessor {
 
 
     public function afterSave() {
-
-        $this->object->sendSMS_now($this->getProperties('phone'),$this->getProperties(['code']),0);
+        //send sms in code
+        $this->modx->epochta->sendSMS_now($this->object->get('phone'),$this->object->get('code'),0);
 
         return parent::afterSave();
     }
 }
 
-return 'ePochtaValidateNumberCreateProcessor';
+return 'epValidateNumCreateProcessor';

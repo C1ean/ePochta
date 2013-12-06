@@ -4,7 +4,7 @@ require_once dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/index.php
 /*******************************************************/
 
 $package = 'epochta'; // Class name for generation
-$suffix = 'epochta_'; // Suffix of tables.
+$suffix = 'ep_'; // Suffix of tables.
 $prefix = $modx->config['table_prefix']; // table prefix
 
 // Folders for schema and model
@@ -33,7 +33,7 @@ $generator->parseSchema($xml, $Model);
 $modx->addPackage($package, $Model);
 
 $objects = array(
-   'ePochtaValidateNumber'
+   'epValidateNum'
 );
 foreach ($objects as $object) {
     $manager->removeObjectContainer($object);

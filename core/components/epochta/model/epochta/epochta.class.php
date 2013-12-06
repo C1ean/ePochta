@@ -27,6 +27,7 @@ class ePochta
             'assetsUrl' => $assetsUrl
         , 'corePath' => $corePath
         ,'processorsPath' => $corePath.'processors/'
+        ,'modelPath' => $corePath . 'model/'
         , 'lib' => $corePath . 'model/epochta/lib/'
         , 'sms_key_private' => $this->modx->getOption('epochta_sms_key_private', null, '') //private key
         , 'sms_key_public' => $this->modx->getOption('epochta_sms_key_public', null, '') //public  key
@@ -38,6 +39,8 @@ class ePochta
 
 
         ), $config);
+
+        $this->modx->addPackage('epochta', $this->config['modelPath']);
 
         //get class from ePochta API
         require_once $this->config['lib'] . 'APISMS.php';
