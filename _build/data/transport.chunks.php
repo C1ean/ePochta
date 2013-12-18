@@ -3,10 +3,14 @@
 $chunks = array();
 
 $tmp = array(
-	'tpl.ePochta.item' => array(
-		'file' => 'item',
+	'tpl.epPhone.outer' => array(
+		'file' => 'ep_phone_outer',
 		'description' => '',
 	),
+    'tpl.epPhone.validate' => array(
+        'file' => 'ep_phone_validate',
+        'description' => '',
+    ),
 );
 
 foreach ($tmp as $k => $v) {

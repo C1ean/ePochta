@@ -41,6 +41,7 @@ class ePochta
         ), $config);
 
         $this->modx->addPackage('epochta', $this->config['modelPath']);
+        $this->modx->lexicon->load('epochta:default');
 
         //get class from ePochta API
         require_once $this->config['lib'] . 'APISMS.php';
@@ -93,6 +94,31 @@ class ePochta
     }
 
     /**
+     * @param $userId
+     * @param $code
+     * @return array|string
+     */
+    public function check_code($userId,$code)
+    {
+        $query = $this->modx->newQuery('epValidateNum');
+        /*get row with select all from max row with max createdon  */
+        $query->select('id as id,createdon as createdon,code as code,validate as validate');
+        $query->limit = 1;
+        $query->sortby('createdon', 'desc');
+        $query->where(array('user_id:=' => $userId,));
+
+        if ($query->prepare() && $query->stmt->execute()) {
+            $data = $query->stmt->fetch(PDO::FETCH_ASSOC);
+        }
+
+        if ($data['code']!=$code) return $this->error('Вы ввели не верный код подтверждения!');
+        else return $this->success('Код принят!');
+
+
+    }
+
+
+    /**
      * Shorthand for the call of processor
      *
      * @access public
@@ -106,7 +132,82 @@ class ePochta
     }
 
 
+    /**
+     * Shorthand for original modX::invokeEvent() method with some useful additions.
+     *
+     * @param $eventName
+     * @param array $params
+     * @param $glue
+     *
+     * @return array
+     */
+    public function invokeEvent($eventName, array $params = array (), $glue = '<br/>') {
+        if (isset($this->modx->event->returnedValues)) {
+            $this->modx->event->returnedValues = null;
+        }
 
+        $response = $this->modx->invokeEvent($eventName, $params);
+        if (is_array($response) && count($response) > 1) {
+            foreach($response as $k => $v) {
+                if (empty($v)) {
+                    unset($response[$k]);
+                }
+            }
+        }
+
+        $message = is_array($response) ? implode($glue, $response) : trim((string) $response);
+        if (isset($this->modx->event->returnedValues) && is_array($this->modx->event->returnedValues)) {
+            $params = array_merge($params, $this->modx->event->returnedValues);
+        }
+
+        return array(
+            'success' => empty($message)
+        ,'message' => $message
+        ,'data' => $params
+        );
+    }
+
+
+
+
+    /**
+     * This method returns an error of the order
+     *
+     * @param string $message A lexicon key for error message
+     * @param array $data.Additional data, for example cart status
+     * @param array $placeholders Array with placeholders for lexicon entry
+     *
+     * @return array|string $response
+     */
+    public function error($message = '', $data = array(), $placeholders = array()) {
+        $response = array(
+            'success' => false,
+            'message' => $this->modx->lexicon($message, $placeholders),
+            'data' => $data,
+        );
+
+        return $this->config['json_response'] ? $this->modx->toJSON($response) : $response;
+    }
+
+
+    /**
+     * This method returns an success of the order
+     *
+     * @param string $message A lexicon key for success message
+     * @param array $data.Additional data, for example cart status
+     * @param array $placeholders Array with placeholders for lexicon entry
+     *
+     * @return array|string $response
+     */
+    public function success($message = '', $data = array(), $placeholders = array()) {
+        $response = array(
+            'success' => true,
+            'message' => $this->modx->lexicon($message, $placeholders),
+            'data' => $data,
+        );
+
+        return $this->config['json_response'] ? $this->modx->toJSON($response) : $response;
+    }
 
 
 

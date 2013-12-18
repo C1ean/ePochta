@@ -7,6 +7,10 @@ $tmp = array(
 		'file' => 'epochta',
 		'description' => '',
 	),
+    'epValidate' => array(
+        'file' => 'epValidate',
+        'description' => '',
+    ),
 );
 
 foreach ($tmp as $k => $v) {

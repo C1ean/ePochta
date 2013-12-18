@@ -62,13 +62,13 @@ class epValidateNumCreateProcessor extends modObjectCreateProcessor
 
     public function beforeSet()
     {
-        $timeout = 15;
+        $timeout = 15*60;
         $codelifetime = 15 * 60 * 24;
 
         $query = $this->modx->newQuery('epValidateNum');
         /*get row with select all from max row with max createdon  */
         $query->select('id as id,createdon as createdon,code as code,validate as validate');
-        $query->limit = 1;
+        $query->limit(1);
         $query->sortby('createdon', 'desc');
         $query->where(array('user_id:=' => $this->getProperty('user_id'),));
 
@@ -76,14 +76,14 @@ class epValidateNumCreateProcessor extends modObjectCreateProcessor
         if ($query->prepare() && $query->stmt->execute()) {
             $data = $query->stmt->fetch(PDO::FETCH_ASSOC);
         }
-        print_r($data);
 
+        //get date diff from current date and created from DB
         $datediff = abs(strtotime($data['createdon']) - strtotime($this->getProperty('createdon')));
 
         //check timeout behind user|sms
         if ($datediff < $timeout) {
             echo "fail";
-            return $this->failure($this->modx->lexicon('sms_timeout_failure'));
+            return $this->failure($this->modx->lexicon('ep_sms_timeout_failure'));
         }
 
 
