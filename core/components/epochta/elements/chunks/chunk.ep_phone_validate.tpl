@@ -12,8 +12,9 @@
 
             <div class="row margin-bottom-10">
                 <div class="col-md-10">
-                    <button type="submit" class="btn btn-primary" name="ep_action" value="phone/check">Получить код
-                    </button>
+
+                    <input type="button" class="btn btn-primary" value="Выслать код" onclick="ePochta.phone(this.form, this);return false;" />
+
                 </div>
             </div>
         </div>

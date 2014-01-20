@@ -82,8 +82,9 @@ class epValidateNumCreateProcessor extends modObjectCreateProcessor
 
         //check timeout behind user|sms
         if ($datediff < $timeout) {
-            echo "fail";
-            return $this->failure($this->modx->lexicon('ep_sms_timeout_failure'));
+
+            return  $this->modx->lexicon('ep_sms_timeout_failure');
+
         }
 
 

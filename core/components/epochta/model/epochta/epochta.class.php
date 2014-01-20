@@ -21,6 +21,7 @@ class ePochta
 
         $corePath = $this->modx->getOption('epochta_core_path', $config, $this->modx->getOption('core_path') . 'components/epochta/');
         $assetsUrl = $this->modx->getOption('epochta_assets_url', $config, $this->modx->getOption('assets_url') . 'components/epochta/');
+        $epLibUrl=$this->modx->getOption('core_path').'components/epochta/model/epochta/lib/';
         $connectorUrl = $assetsUrl . 'connector.php';
 
         $this->config = array_merge(array(
@@ -28,7 +29,6 @@ class ePochta
         , 'corePath' => $corePath
         ,'processorsPath' => $corePath.'processors/'
         ,'modelPath' => $corePath . 'model/'
-        , 'lib' => $corePath . 'model/epochta/lib/'
         , 'sms_key_private' => $this->modx->getOption('epochta_sms_key_private', null, '') //private key
         , 'sms_key_public' => $this->modx->getOption('epochta_sms_key_public', null, '') //public  key
         , 'url_gateway' => $this->modx->getOption('epochta_url_gateway', null, 'http://atompark.com/api/sms/') //service addr
@@ -36,6 +36,8 @@ class ePochta
         , 'sms_datetime' => $this->modx->getOption('epochta_sms_datetime', null, null) //datetime for send in future
         , 'sms_identy' => $this->modx->getOption('epochta_sms_identy', null, null) //sender id
         , 'sms_lifetime' => $this->modx->getOption('epochta_sms_lifetime', null, 0) //life time of SMS
+        , 'tplSendCode' => $this->modx->getOption('epochta_tpl_send_code', null, 'tpl.epPhone.validate') //life time of SMS
+
 
 
         ), $config);
@@ -43,9 +45,12 @@ class ePochta
         $this->modx->addPackage('epochta', $this->config['modelPath']);
         $this->modx->lexicon->load('epochta:default');
 
+
+
         //get class from ePochta API
-        require_once $this->config['lib'] . 'APISMS.php';
-        require_once $this->config['lib'] . 'Stat.php';
+        require_once $epLibUrl . 'APISMS.php';
+
+         require_once $epLibUrl . 'Stat.php';
 
         $this->gateway = new ePochta_APISMS($this->config['sms_key_private'], $this->config['sms_key_public'], $this->config['url_gateway']);
 
@@ -60,6 +65,36 @@ class ePochta
 
 
     }
+
+
+
+
+
+    /**
+     * Initializes component into different contexts.
+     *
+     * @param string $ctx The context to load. Defaults to web.
+     * @param array $scriptProperties
+     *
+     * @return boolean
+     */
+    public function initialize($ctx = 'web', $scriptProperties = array()) {
+
+
+
+        $this->modx->regClientStartupScript($this->config['assetsUrl'].'js/web/lib/jquery.min.js');
+        $this->modx->regClientStartupScript($this->config['assetsUrl'].'js/web/lib/jquery.form.min.js');
+        $this->modx->regClientStartupScript($this->config['assetsUrl'].'js/web/lib/jquery.jgrowl.min.js');
+        $this->modx->regClientStartupScript($this->config['assetsUrl'].'js/web/config.js');
+        $this->modx->regClientStartupScript($this->config['assetsUrl'].'js/web/default.js');
+
+
+        return true;
+    }
+
+
+
+
 
 
     /**
@@ -93,32 +128,65 @@ class ePochta
 
     }
 
+
     /**
-     * @param $userId
-     * @param $code
+     * @param $phone
      * @return array|string
      */
-    public function check_code($userId,$code)
+    public function send_code($data=array())
     {
-        $query = $this->modx->newQuery('epValidateNum');
-        /*get row with select all from max row with max createdon  */
-        $query->select('id as id,createdon as createdon,code as code,validate as validate');
-        $query->limit = 1;
-        $query->sortby('createdon', 'desc');
-        $query->where(array('user_id:=' => $userId,));
+        $phone=$data['ep_mobile_phone'];
 
-        if ($query->prepare() && $query->stmt->execute()) {
-            $data = $query->stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!empty($phone))
+            $response = $this->runProcessor('web/validate/create', array('phone'=>$phone));
+        else
+            return $this->error($this->modx->lexicon('ep_sms_phone_empty'));
+
+        if ($response->isError()){
+            return $this->error($response->getMessage());
+        }else
+        {
+
+            return $this->success($this->modx->lexicon('ep_sms_successful_send_code'), array('phone' => $phone));
         }
 
-        if ($data['code']!=$code) return $this->error('Вы ввели не верный код подтверждения!');
-        else return $this->success('Код принят!');
 
 
     }
 
 
+
+
     /**
+     * @param $phone
+     * @return array|string
+     */
+    public function check_code($data=array())
+    {
+        $code=$data['ep_user_code'];
+
+
+        if (!empty($phone))
+            $response = $this->runProcessor('web/validate/update', array('user_code'=>$code));
+        else
+            return $this->error($this->modx->lexicon('ep_check_code_error'));
+
+        if ($response->isError()){
+            return $this->error($response->getMessage());
+        }else
+        {
+
+            return $this->success($this->modx->lexicon('ep_check_code_successful'), array('code' => $code));
+        }
+    }
+
+
+
+
+
+
+        /**
      * Shorthand for the call of processor
      *
      * @access public

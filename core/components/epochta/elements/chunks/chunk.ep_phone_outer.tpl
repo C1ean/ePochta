@@ -3,7 +3,7 @@
         <div class="bg-light">
             <div class="form-group">
                 <label>Номер телефона</label>
-                <input type="text" class="form-control" name="ep_mobile_phone" value="[[+extended.nickname]]"
+                <input type="text" class="form-control" name="ep_mobile_phone" id="mobile_phone" value="[[+extended.nickname]]"
                        placeholder="Номер в международном формате"/>
                 <span class="help-inline message color-red">[[+error_nickname]]</span>
                 <br/>

@@ -11,6 +11,12 @@ $tmp = array(
         'file' => 'ep_phone_validate',
         'description' => '',
     ),
+    'tpl.epPhone.check' => array(
+        'file' => 'ep_phone_check',
+        'description' => '',
+    ),
+
+
 );
 
 foreach ($tmp as $k => $v) {
