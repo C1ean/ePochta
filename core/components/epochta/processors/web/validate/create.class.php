@@ -62,8 +62,12 @@ class epValidateNumCreateProcessor extends modObjectCreateProcessor
 
     public function beforeSet()
     {
-        $timeout = 15*60;
-        $codelifetime = 15 * 60 * 24;
+        //if phone is not in number then take error
+        if (!is_numeric($this->getProperty('phone')))
+           return $this->modx->lexicon('ep_phone_is_not_numeric');
+        //get system properties
+        $timeout = $this->modx->getOption('epochta_ep_sms_timeout', null, 900);
+        $codelifetime = $this->modx->getOption('epochta_ep_sms_codelifetime', null, 1800);
 
         $query = $this->modx->newQuery('epValidateNum');
         /*get row with select all from max row with max createdon  */
@@ -72,7 +76,7 @@ class epValidateNumCreateProcessor extends modObjectCreateProcessor
         $query->sortby('createdon', 'desc');
         $query->where(array('user_id:=' => $this->getProperty('user_id'),));
 
-
+        //get data info previous code send for this user
         if ($query->prepare() && $query->stmt->execute()) {
             $data = $query->stmt->fetch(PDO::FETCH_ASSOC);
         }
@@ -82,11 +86,9 @@ class epValidateNumCreateProcessor extends modObjectCreateProcessor
 
         //check timeout behind user|sms
         if ($datediff < $timeout) {
-
             return  $this->modx->lexicon('ep_sms_timeout_failure');
 
         }
-
 
         //check if we already send code to user, and he doens't validate them
         if (($data['validate'] == 0) and ($datediff < $codelifetime)) {
@@ -109,6 +111,8 @@ class epValidateNumCreateProcessor extends modObjectCreateProcessor
     {
         //send sms in code
     //    $this->modx->epochta->sendSMS_now($this->object->get('phone'), $this->object->get('code'), 0);
+
+
 
         return parent::afterSave();
     }

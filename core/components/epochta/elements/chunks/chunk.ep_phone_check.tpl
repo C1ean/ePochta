@@ -6,9 +6,9 @@
         <div class="bg-light">
             <div class="form-group">
                 <label>Номер телефона</label>
-                <input type="text" class="form-control" name="ep_mobile_phone" id="mobile_phone" value="[[+extended.nickname]]"
+                <input type="text" class="form-control" name="ep_mobile_phone" id="mobile_phone"
                        placeholder="Номер в международном формате"/>
-                <span class="help-inline message color-red">[[+error_nickname]]</span>
+
                 <br/>
                 <small>Полный номер телефона,например +79601234567</small>
             </div>
@@ -30,9 +30,9 @@
             <div class="bg-light">
                 <div class="form-group">
                     <label>Код подтверждения</label>
-                    <input type="text" class="form-control" name="ep_user_code" value="[[+extended.nickname]]"
+                    <input type="text" class="form-control" name="ep_user_code"
                            placeholder="Проверочный код"/>
-                    <span class="help-inline message color-red">[[+error_nickname]]</span>
+
                     <br/>
                     <small>Как правило, смс приходит не позднее,чем через 15 минут с момента отправки сообщения.</small>
                 </div>

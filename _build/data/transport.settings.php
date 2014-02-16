@@ -42,6 +42,20 @@ $tmp = array(
         'area' => 'epochta_setting',
     ),
 
+
+    'ep_sms_timeout' => array(
+    'xtype' => 'numberfield',
+    'value' => '900',
+    'area' => 'epochta_component',
+    ),
+
+    'ep_sms_codelifetime' => array(
+    'xtype' => 'numberfield',
+    'value' => '1800',
+    'area' => 'epochta_component',
+    ),
+
+
 );
 
 foreach ($tmp as $k => $v) {

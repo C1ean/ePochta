@@ -14,6 +14,8 @@ var ePochta = {
 
         $(document).ready(function() {
             $('#check_code').hide();
+            $('#get_phone').hide();
+           ePochta.phone.needphone();
         });
 
 
@@ -25,7 +27,30 @@ var ePochta = {
     }
 
     ,phone: {
-       sendcode: function(form,button)  {
+        needphone: function()  {
+            $('#phone_check').ajaxSubmit({
+                data: {action: 'phone/needphone'}
+                ,url: ePochtaConfig.actionUrl
+                ,dataType: 'json'
+
+                ,success: function(response) {
+
+                    if (response.success) {
+                        $('#check_code').show();
+
+                    }
+                    else {
+                        $('#get_phone').show();
+                    }
+                }
+            });
+            return false;
+        },
+
+
+
+
+        sendcode: function(form,button)  {
            $(form).ajaxSubmit({
                data: {action: 'phone/sendcode'}
                ,url: ePochtaConfig.actionUrl
@@ -48,6 +73,7 @@ var ePochta = {
                        $('#get_phone').hide();
 
                        form.show();
+                       ePochta.Message.success(response.message);
 
                    }
                    else {
@@ -81,6 +107,8 @@ var ePochta = {
 
                         form.hide();
 
+                        ePochta.Message.success(response.message);
+
                     }
                     else {
                         ePochta.Message.error(response.message);
@@ -92,26 +120,26 @@ var ePochta = {
 
 
 
-
-
     }
+
+
 };
 
 
 ePochta.Message = {
     success: function(message) {
         if (message) {
-            $.jGrowl(message, {theme: 'tickets-message-success'});
+            $.jGrowl(message, {theme: 'ep-message-success'});
         }
     }
     ,error: function(message) {
         if (message) {
-            $.jGrowl(message, {theme: 'tickets-message-error'/*, sticky: true*/});
+            $.jGrowl(message, {theme: 'ep-message-error'/*, sticky: true*/});
         }
     }
     ,info: function(message) {
         if (message) {
-            $.jGrowl(message, {theme: 'tickets-message-info'});
+            $.jGrowl(message, {theme: 'ep-message-info'});
         }
     }
     ,close: function() {

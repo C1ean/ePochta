@@ -32,9 +32,10 @@ if ($modx->error->hasError() || !($ePochta instanceof ePochta)) {die('Error');}
 switch ($action) {
 	case 'phone/sendcode': $response = $ePochta->send_code($_POST); break;
 	case 'phone/checkcode': $response =$ePochta->check_code($_POST); break;
+    case 'phone/needphone': $response =$ePochta->is_need_phone_enter(); break;
 
 	default:
-		$message = $_REQUEST['action'] != $action ? 'tickets_err_register_globals' : 'tickets_err_unknown';
+		$message = $_REQUEST['action'] != $action ? 'epochta_err_register_globals' : 'epochta_err_unknown';
 		$response = $modx->toJSON(array('success' => false, 'message' => $modx->lexicon($message)));
 }
 

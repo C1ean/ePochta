@@ -1,0 +1,5 @@
+@import url("./lib/jquery.jgrowl.css");
+
+.ep-message-success  {background-color: green !important;}
+.ep-message-error  {background-color: brown !important;}
+.ep-message-info  {background-color: black !important;}

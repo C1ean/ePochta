@@ -10,8 +10,10 @@
 
  */
 
-$_lang['area_epochta_main'] = 'Основные';
+$_lang['area_epochta_setting'] = 'Сервис EPochta';
 
+
+//service settings
 $_lang['setting_epochta_sms_key_private']  = 'Приватный ключ';
 $_lang['setting_epochta_sms_key_private_desc']  = 'Выдается в личном кабинете на закладке API v.3';
 
@@ -32,3 +34,15 @@ $_lang['setting_epochta_sms_identy_desc'] ='Идентификатор отпр�
 $_lang['setting_epochta_sms_lifetimee']='Время жизни СМС';
 $_lang['setting_epochta_sms_lifetime_desc'] ='Время жизни смс (0 = максимум, 1, 6, 12, 24 часа)';
 
+
+
+//local component settings
+
+$_lang['area_epochta_component'] = 'Настройки компонента';
+
+
+$_lang['setting_epochta_ep_sms_timeout']='Таймаут отправки СМС';
+$_lang['setting_epochta_ep_sms_timeout_desc']='Таймаут отправки СМС для одного юзера, в секундах.(По умолчанию 900)';
+
+$_lang['setting_epochta_ep_sms_codelifetime']='Время жизни СМС-кода';
+$_lang['setting_epochta_ep_sms_codelifetime_desc'] = 'Параметр выставляет, как долго будет жить отпралвенный,но еще не подтвержденный SMS код пользователя, в секундах. (По умолчанию 1800)';

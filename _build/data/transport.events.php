@@ -3,10 +3,7 @@
 $events = array();
 
 $tmp = array(
-    'OnBeforeSaveEpValidateNum',
-	'OnAfterSaveEpValidateNum',
-
-
+   'OnAfterCodeValidate',
 );
 
 foreach ($tmp as $k => $v) {
