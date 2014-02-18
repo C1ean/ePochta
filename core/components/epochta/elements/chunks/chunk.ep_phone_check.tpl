@@ -25,7 +25,7 @@
 </div>
 
 <div id="check_code">
-    <form method="post">
+    <form   id="get-code-form" action="" method="post">
         <div class="col-md-9">
             <div class="bg-light">
                 <div class="form-group">

@@ -6,7 +6,7 @@ class epValidateNumUpdateProcessor extends modObjectUpdateProcessor {
     public $classKey = 'epValidateNum';
     public $languageTopics = array('epochta:default');
 
-
+    public $beforeSaveEvent='OnBeforeCodeValidate';
     public $afterSaveEvent = 'OnAfterCodeValidate';
 
     private  $data;

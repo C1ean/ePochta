@@ -7,6 +7,11 @@ class epValidateNumCreateProcessor extends modObjectCreateProcessor
     public $classKey = 'epValidateNum';
     public $languageTopics = array('epochta:default');
 
+    public $beforeSaveEvent = 'OnBeforePhoneCheck';
+    public $afterSaveEvent = 'OnAfterPhoneCheck';
+
+
+
 
     /**
      * @param $number

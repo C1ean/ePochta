@@ -38,6 +38,7 @@ class ePochta
         , 'sms_lifetime' => $this->modx->getOption('epochta_sms_lifetime', null, 0) //life time of SMS
 
         , 'ep_sms_timeout' => $this->modx->getOption('epochta_ep_sms_timeout', null, 900) //timeout for send sms per sms for 1 user
+        , 'ep_sms_check_redirect' => $this->modx->getOption('epochta_ep_sms_check_redirect', null, 0) //page id to redirect after successfull code check.Default -reload self page
 
 
 
@@ -163,7 +164,14 @@ class ePochta
         if ($response->isError()) {
             return $this->error($response->getMessage());
         } else {
-            return $this->success($this->modx->lexicon('ep_check_code_successful'), array('code' => $code));
+            $id=$this->config['ep_sms_check_redirect'];
+            if ($id<>0){
+            $redirect = $this->modx->makeUrl($id,'','','full');
+            return $this->success($this->modx->lexicon('ep_check_code_successful'), array('redirect' =>$redirect));
+            }
+            else   return $this->success($this->modx->lexicon('ep_check_code_successful'));;
+
+
         }
     }
 

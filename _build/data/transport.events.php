@@ -3,7 +3,11 @@
 $events = array();
 
 $tmp = array(
-   'OnAfterCodeValidate',
+    'OnBeforeCodeValidate',
+    'OnAfterCodeValidate',
+    'OnBeforePhoneCheck',
+    'OnAfterPhoneCheck',
+
 );
 
 foreach ($tmp as $k => $v) {
