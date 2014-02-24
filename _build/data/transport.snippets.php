@@ -3,10 +3,7 @@
 $snippets = array();
 
 $tmp = array(
-	'ePochta' => array(
-		'file' => 'epochta',
-		'description' => '',
-	),
+
     'epValidate' => array(
         'file' => 'epValidate',
         'description' => '',

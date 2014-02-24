@@ -11,16 +11,15 @@ class epValidateNumCreateProcessor extends modObjectCreateProcessor
     public $afterSaveEvent = 'OnAfterPhoneCheck';
 
 
-
-
     /**
      * @param $number
      * @return string
      */
-    function gen_code($number)
+    function gen_code()
     {
-        //array of code symbols
-        $arr = array('a', 'b', 'c', 'd', 'e', 'f',
+        //array of code symbols default
+
+        $tmp_arr = array('a', 'b', 'c', 'd', 'e', 'f',
             'g', 'h', 'i', 'j', 'k', 'l',
             'm', 'n', 'o', 'p', 'r', 's',
             't', 'u', 'v', 'x', 'y', 'z',
@@ -29,13 +28,17 @@ class epValidateNumCreateProcessor extends modObjectCreateProcessor
             'M', 'N', 'O', 'P', 'R', 'S',
             'T', 'U', 'V', 'X', 'Y', 'Z',
             '1', '2', '3', '4', '5', '6',
-            '7', '8', '9', '0', '.', ',',
-            '(', ')', '[', ']', '!', '?',
-            '&', '^', '%', '@', '*', '$',
-            '<', '>', '/', '|', '+', '-',
-            '{', '}', '`', '~');
+            '7', '8', '9', '0');
 
-        // generate password
+        $setting_arr = $this->modx->getOption('ep_sms_code_symbols', null, null);
+
+        if ($setting_arr == null) $arr = $tmp_arr;
+        else
+            $arr = json_decode($setting_arr);
+
+        $number = $this->modx->getOption('epochta_ep_sms_code_length', null, 6);
+
+        // generate code
         $code = "";
         for ($i = 0; $i < $number; $i++) {
             // get random index
@@ -68,8 +71,8 @@ class epValidateNumCreateProcessor extends modObjectCreateProcessor
     public function beforeSet()
     {
         //if phone is not in number then take error
-        if (!is_numeric($this->getProperty('phone')))
-           return $this->modx->lexicon('ep_phone_is_not_numeric');
+        if (!ctype_digit($this->getProperty('phone')))
+            return $this->modx->lexicon('ep_phone_is_not_numeric');
         //get system properties
         $timeout = $this->modx->getOption('epochta_ep_sms_timeout', null, 900);
         $codelifetime = $this->modx->getOption('epochta_ep_sms_codelifetime', null, 1800);
@@ -91,7 +94,7 @@ class epValidateNumCreateProcessor extends modObjectCreateProcessor
 
         //check timeout behind user|sms
         if ($datediff < $timeout) {
-            return  $this->modx->lexicon('ep_sms_timeout_failure');
+            return $this->modx->lexicon('ep_sms_timeout_failure');
 
         }
 
@@ -102,7 +105,7 @@ class epValidateNumCreateProcessor extends modObjectCreateProcessor
 
         } else {
             //generate new code
-            $code = $this->gen_code(6);
+            $code = $this->gen_code();
             $this->setProperties(array('code' => $code,));
         }
 
@@ -112,15 +115,6 @@ class epValidateNumCreateProcessor extends modObjectCreateProcessor
     }
 
 
-    public function afterSave()
-    {
-        //send sms in code
-    //    $this->modx->epochta->sendSMS_now($this->object->get('phone'), $this->object->get('code'), 0);
-
-
-
-        return parent::afterSave();
-    }
 }
 
 return 'epValidateNumCreateProcessor';

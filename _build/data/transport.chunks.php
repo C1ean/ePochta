@@ -3,16 +3,13 @@
 $chunks = array();
 
 $tmp = array(
-	'tpl.epPhone.outer' => array(
-		'file' => 'ep_phone_outer',
-		'description' => '',
-	),
-    'tpl.epPhone.validate' => array(
-        'file' => 'ep_phone_validate',
-        'description' => '',
-    ),
     'tpl.epPhone.check' => array(
         'file' => 'ep_phone_check',
+        'description' => '',
+    ),
+
+    'tpl.epPhone.exists' => array(
+        'file' => 'ep_phone_exists',
         'description' => '',
     ),
 

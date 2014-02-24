@@ -111,15 +111,15 @@ class ePochta
         $res = $stat->sendSMS($this->config['sms_identy'], $text, $tel, $datetime, $this->config['sms_lifetime']);
 
         if (isset($res["error"])) {
-            $this->modx->log(modX::LOG_LEVEL_ERROR, '[ePochta] Error send sms to [' . $tel . '], text [' . $text . ']');
+            $this->modx->log(modX::LOG_LEVEL_ERROR, '[ePochta] Error send sms to [' . $tel . '], text [' . $text . '] user_id ['. $this->modx->user->get('id').']');
             $this->modx->log(modX::LOG_LEVEL_ERROR, print_r($res, true));
             return false;
         } elseif (isset($res["warnings"])) {
-            $this->modx->log(modX::LOG_LEVEL_ERROR, '[ePochta] Warnings send sms to [' . $tel . '], text [' . $text . ']');
+            $this->modx->log(modX::LOG_LEVEL_ERROR, '[ePochta] Warnings send sms to [' . $tel . '], text [' . $text . '] user_id ['. $this->modx->user->get('id').']');
             $this->modx->log(modX::LOG_LEVEL_ERROR, print_r($res, true));
             return true;
         } else {
-            $this->modx->log(modX::LOG_LEVEL_ERROR, '[ePochta] Send OK to ' . $tel . ' : ' . print_r($res, true));
+
             return true;
         }
 
