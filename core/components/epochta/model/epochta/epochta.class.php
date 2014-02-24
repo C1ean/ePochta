@@ -196,12 +196,20 @@ class ePochta
 
         //get date diff from current date and created from DB
         $datediff = abs(strtotime($data['createdon']) - strtotime(date('Y-m-d H:i:s')));
+        $timeout=$this->config['ep_sms_timeout'];
 
-        //last code that sended is timeouted-user must enter phone to obtain code
-        if ($datediff < $this->config['ep_sms_timeout']) {
-            return $this->success('');
-        } else //need to enter code
+
+
+
+        //need to enter code
+        if ($datediff < $timeout) {
+            $time = time() -strtotime($data['createdon']);
+            $time_less=$timeout-$time;
+            return $this->success('',array(
+                'timeout' => $time_less));
+        } else //last code that sended is timeouted-user must enter phone to obtain code
         {
+
             return $this->error('');
         }
 

@@ -41,6 +41,8 @@
                     <div class="col-md-10">
 
                         <input type="button" class="btn btn-primary" value="Подтвердить код" onclick="ePochta.phone.checkcode(this.form, this);return false;" />
+                        <span class="time"></span>
+                        <input type="button" class="btn btn-primary"  id="check_retry" value="Повторная отправка" onclick="ePochta.phone.needphone();return false;" />
 
                     </div>
                 </div>
