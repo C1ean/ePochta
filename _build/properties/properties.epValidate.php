@@ -3,34 +3,16 @@
 $properties = array();
 
 $tmp = array(
-	'tpl' => array(
+	'tplCheck' => array(
 		'type' => 'textfield',
-		'value' => 'tpl.ePochta.item',
+		'value' => 'tpl.epPhone.check',
 	),
-	'sortBy' => array(
-		'type' => 'textfield',
-		'value' => 'name',
-	),
-	'sortDir' => array(
-		'type' => 'list',
-		'options' => array(
-			array('text' => 'ASC', 'value' => 'ASC'),
-			array('text' => 'DESC', 'value' => 'DESC'),
-		),
-		'value' => 'ASC'
-	),
-	'limit' => array(
-		'type' => 'numberfield',
-		'value' => 5,
-	),
-	'outputSeparator' => array(
-		'type' => 'textfield',
-		'value' => "\n",
-	),
-	'toPlaceholder' => array(
-		'type' => 'combo-boolean',
-		'value' => false,
-	),
+
+    'tplExists' => array(
+        'type' => 'textfield',
+        'value' => 'tpl.epPhone.phoneExists',
+    ),
+
 );
 
 foreach ($tmp as $k => $v) {

@@ -1,14 +1,5 @@
 <?php
 
-/*
- * ,'sms_key_private' => $this->modx->getOption('epochta_sms_key_private', null, '') //private key
-            ,'sms_key_public' => $this->modx->getOption('epochta_sms_key_public', null, '') //public  key
-            ,'url_gateway' => $this->modx->getOption('epochta_url_gateway', null, 'http://atompark.com/api/sms/') //service addr
-            ,'test_mode' => $this->modx->getOption('epochta_test_mode', null, true) //is a test or prod
-            ,'sms_datetime' => $this->modx->getOption('epochta_sms_datetime', null, null) //datetime for send in future
-            ,'sms_lifetime' => $this->modx->getOption('epochta_sms_lifetime', null, 0) //life time of SMS
-
- */
 
 $_lang['area_epochta_setting'] = 'Сервис EPochta';
 

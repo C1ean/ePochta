@@ -17,17 +17,24 @@ if ($modx->user->isAuthenticated($modx->context->key)) {
         $pdoFetch = new pdoFetch($modx, $scriptProperties);
         $pdoFetch->addTime('pdoTools loaded.');
 
+
+
+        /* prepare settings */
+        if (!isset($tplCheck)){ $tplCheck='tpl.epPhone.check'; }
+        if (!isset($tplExists)){ $tplExists='tpl.epPhone.phoneExists'; }
+
+
         /* If user already have phone nothing to do */
 
         $profile = $modx->user->getOne('Profile');
         $userPhone=$profile->get('mobilephone');
 
         if (!empty($userPhone)){
-            $output=$pdoFetch->getChunk('tpl.epPhone.phoneExists',array('mobilephone'=>$userPhone));
+            $output=$pdoFetch->getChunk($tplExists,array('mobilephone'=>$userPhone));
         }
         else
         {
-            $output = $pdoFetch->getChunk('tpl.epPhone.check');
+            $output = $pdoFetch->getChunk($tplCheck);
         }
 
         if ($modx->user->hasSessionContext('mgr') && !empty($showLog)) {

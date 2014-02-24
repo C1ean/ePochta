@@ -3,3 +3,13 @@ Changelog for ePochta.
 ePochta 0.0.1
 ==============
 - Initial release.
+- Enabling SMS Gate ePochta send sms
+-   Events :
+      'OnBeforeCodeValidate'
+      'OnAfterCodeValidate'
+      'OnBeforePhoneCheck'
+      'OnAfterPhoneCheck'
+- Validate phone code snippet, timing for retry
+
+
+

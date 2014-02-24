@@ -3,15 +3,29 @@
 include_once 'setting.inc.php';
 
 $_lang['epochta'] = 'ePochta';
-$_lang['epochta_menu_desc'] = 'A sample Extra to develop from.';
-$_lang['epochta_items'] = 'Items';
-$_lang['epochta_item_create'] = 'Create Item';
-$_lang['epochta_item_err_ae'] = 'An Item already exists with that name.';
-$_lang['epochta_item_err_nf'] = 'Item not found.';
-$_lang['epochta_item_err_ns'] = 'Item not specified.';
-$_lang['epochta_item_err_remove'] = 'An error occurred while trying to remove the Item.';
-$_lang['epochta_item_err_save'] = 'An error occurred while trying to save the Item.';
-$_lang['epochta_item_remove'] = 'Remove Item';
-$_lang['epochta_item_remove_confirm'] = 'Are you sure you want to remove this Item?';
-$_lang['epochta_item_update'] = 'Update Item';
-$_lang['epochta_intro_msg'] = 'Manage your items.';
+
+//phone page errors
+
+$_lang['ep_phone_timeout_failure'] = 'Needing timeout before sending messages';
+
+$_lang['ep_phone_is_not_numeric'] = 'Phone must be numeric only!';
+
+//code validate errors
+$_lang['ep_sms_validate_already_done'] = 'This phone already validate';
+
+$_lang['ep_sms_phone_empty'] ='Phone number is empty!';
+
+
+$_lang['ep_sms_code_is_empty'] = 'Code cannot be empty!';
+
+$_lang['ep_sms_check_code_wrong'] = 'Wrong code!';
+
+//success messages
+$_lang['ep_phone_successful_send_code'] = 'Successful sending code to phone № ';
+
+$_lang['ep_check_code_successful']='Congratulations, number successfully validated!';
+
+
+
+
+
