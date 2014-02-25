@@ -10,7 +10,7 @@ $tmp = array(
 
     'tplExists' => array(
         'type' => 'textfield',
-        'value' => 'tpl.epPhone.phoneExists',
+        'value' => 'tpl.epPhone.exists',
     ),
 
 );

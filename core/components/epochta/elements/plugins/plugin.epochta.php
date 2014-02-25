@@ -1,10 +1,7 @@
 <?php
 switch ($modx->event->name) {
 
-    case 'OnManagerPageInit':
-        $cssFile = MODX_ASSETS_URL.'components/epochta/css/mgr/main.css';
-        $modx->regClientCSS($cssFile);
-        break;
+
 
     case 'OnAfterCodeValidate':
 
@@ -17,7 +14,7 @@ switch ($modx->event->name) {
 
         if ($modx->getCount('modUserProfile', array('mobilephone' => $data['phone']))) {
             $modx->event->output('Указанный номер уже был кем-то активирован.Обратитесь к администраторам сайта,если хотите использовать этот номер.');
-
+            return "";
         }
 
         /** send code with SMS to user */
@@ -29,7 +26,7 @@ switch ($modx->event->name) {
 
         if(!($ePochta->sendSMS_now($object->get('phone'), $message, 0)))
             $modx->event->output('Возникла ошибка при отправке SMS на номер  '.$object->get('phone').' Попробуйте повторить попытку позджде,или сообщите администрации сайта о проблеме.');
-
+        return "";
 
         break;
 

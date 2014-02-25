@@ -21,7 +21,7 @@ if ($modx->user->isAuthenticated($modx->context->key)) {
 
         /* prepare settings */
         if (!isset($tplCheck)){ $tplCheck='tpl.epPhone.check'; }
-        if (!isset($tplExists)){ $tplExists='tpl.epPhone.phoneExists'; }
+        if (!isset($tplExists)){ $tplExists='tpl.epPhone.exists'; }
 
 
         /* If user already have phone nothing to do */
